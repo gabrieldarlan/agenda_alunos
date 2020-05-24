@@ -2,6 +2,7 @@ package br.com.alura.agenda.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,7 @@ import static br.com.alura.agenda.ui.activity.ConstantesAcitivies.TITULO_APPBAR_
 public class ListaAlunosActivity extends AppCompatActivity {
 
     private final AlunoDao dao = new AlunoDao();
+    private ArrayAdapter<Aluno> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,8 +33,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR_LISTA_ALUNOS);
         setContentView(R.layout.activity_lista_alunos);
         configuraFabNovoAluno();
-        dao.salva(new Aluno("Nayara", "1111-1111", "nayara@gmail.com"));
-        dao.salva(new Aluno("Nicole", "2222-2222", "nicole@gmail.com"));
+        configuraLista();
+        dao.salva(new Aluno("Aluno1", "1111-1111", "aluno1@gmail.com"));
+        dao.salva(new Aluno("Aluno2", "2222-2222", "aluno2@gmail.com"));
     }
 
     private void configuraFabNovoAluno() {
@@ -51,14 +54,35 @@ public class ListaAlunosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        configuraLista();
+        atualizaAlunos();
+    }
+
+    private void atualizaAlunos() {
+        adapter.clear();
+        adapter.addAll(dao.todos());
     }
 
     private void configuraLista() {
         ListView listaDeAluno = findViewById(R.id.activity_lista_alunos_listview);
-        final List<Aluno> alunos = dao.todos();
-        configuraAdapter(listaDeAluno, alunos);
+        configuraAdapter(listaDeAluno);
         configuraListernerDeCliquePorItem(listaDeAluno);
+        configuraListenerDeCliqueLongoPorItem(listaDeAluno);
+    }
+
+    private void configuraListenerDeCliqueLongoPorItem(ListView listaDeAluno) {
+        listaDeAluno.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
+                remove(alunoEscolhido);
+                return true;
+            }
+        });
+    }
+
+    private void remove(Aluno aluno) {
+        dao.remove(aluno);
+        adapter.remove(aluno);
     }
 
     private void configuraListernerDeCliquePorItem(ListView listaDeAluno) {
@@ -79,8 +103,8 @@ public class ListaAlunosActivity extends AppCompatActivity {
         startActivity(vaiParaFormularioActivity);
     }
 
-    private void configuraAdapter(ListView listaDeAluno, List<Aluno> alunos) {
-        listaDeAluno.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                alunos));
+    private void configuraAdapter(ListView listaDeAluno) {
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        listaDeAluno.setAdapter(adapter);
     }
 }
