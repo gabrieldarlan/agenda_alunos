@@ -6,7 +6,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,7 @@ import static br.com.alura.agenda.ui.activity.ConstantesAcitivies.TITULO_APPBAR_
 public class ListaAlunosActivity extends AppCompatActivity {
 
     private final AlunoDao dao = new AlunoDao();
-    private ArrayAdapter<Aluno> adapter;
+    private ListaAlunosAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,7 +110,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     private void configuraAdapter(ListView listaDeAluno) {
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        adapter = new ListaAlunosAdapter(this);
         listaDeAluno.setAdapter(adapter);
     }
 }
