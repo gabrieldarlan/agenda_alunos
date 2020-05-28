@@ -16,14 +16,6 @@
             android:autofillHints="no"
             android:hint="@string/nome"
             android:inputType="textCapWords" />
-        <EditText
-            android:id="@+id/activity_formulario_aluno_sobrenome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:autofillHints="no"
-            android:hint="@string/sobrenome"
-            android:inputType="textCapWords" />
 
         <EditText
             android:id="@+id/activity_formulario_aluno_telefone"
