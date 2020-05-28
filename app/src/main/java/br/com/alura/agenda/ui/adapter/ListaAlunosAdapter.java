@@ -1,4 +1,4 @@
-package br.com.alura.agenda.ui.activity;
+package br.com.alura.agenda.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,11 +13,12 @@ import java.util.List;
 import br.com.alura.agenda.R;
 import br.com.alura.agenda.model.Aluno;
 
+@SuppressWarnings("WeakerAccess")
 public class ListaAlunosAdapter extends BaseAdapter {
 
     private final List<Aluno> alunos = new ArrayList<>();
 
-    private Context context;
+    private final Context context;
 
     public ListaAlunosAdapter(Context context) {
         this.context = context;

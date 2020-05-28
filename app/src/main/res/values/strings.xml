@@ -3,7 +3,6 @@
     <string name="nome">Nome</string>
     <string name="telefone">Telefone</string>
     <string name="e_mail">E-mail</string>
-    <string name="salvar">salvar</string>
     <string name="remover">Remover</string>
     <string name="salvar_aluno">SALVAR ALUNO</string>
 </resources>
