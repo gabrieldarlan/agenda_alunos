@@ -1,6 +1,5 @@
 package br.com.alura.agenda.model;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -11,12 +10,22 @@ public class Telefone {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String numero;
+    private final TipoTelefone tipo;
     @ForeignKey(entity = Aluno.class,
             parentColumns = "id",
             childColumns = "alunoId",
             onUpdate = ForeignKey.CASCADE,
             onDelete = ForeignKey.CASCADE)
     private int alunoId;
+
+    public Telefone(String numero, TipoTelefone tipo) {
+        this.numero = numero;
+        this.tipo = tipo;
+    }
+
+    public TipoTelefone getTipo() {
+        return tipo;
+    }
 
     public int getAlunoId() {
         return alunoId;
@@ -26,7 +35,6 @@ public class Telefone {
         this.alunoId = alunoId;
     }
 
-    private TipoTelefone tipo;
 
     public int getId() {
         return id;
@@ -44,11 +52,5 @@ public class Telefone {
         this.numero = numero;
     }
 
-    public TipoTelefone getTipo() {
-        return tipo;
-    }
 
-    public void setTipo(TipoTelefone tipo) {
-        this.tipo = tipo;
-    }
 }
